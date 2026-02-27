@@ -22,49 +22,39 @@ public class DocumentStation implements CommandLineRunner {
 		SpringApplication.run(DocumentStation.class, args);
 	}
 
-		@Override
-		public void run (String...args){
-			Runtime runtime = Runtime.getRuntime();
+	@Override
+	public void run(String... args) {
+		Runtime runtime = Runtime.getRuntime();
 
-			final NumberFormat format = NumberFormat.getInstance();
+		final NumberFormat format = NumberFormat.getInstance();
 
-			final long maxMemory = runtime.maxMemory();
-			final long allocatedMemory = runtime.totalMemory();
-			final long freeMemory = runtime.freeMemory();
-			final long mb = 1024 * 1024;
-			final String mega = " MB";
+		final long maxMemory = runtime.maxMemory();
+		final long allocatedMemory = runtime.totalMemory();
+		final long freeMemory = runtime.freeMemory();
+		final long mb = 1024 * 1024;
+		final String mega = " MB";
 
-			logger.info("========================== Memory Info ==========================");
-			logger.info("Free memory: " + format.format(freeMemory / mb) + mega);
-			logger.info("Allocated memory: " + format.format(allocatedMemory / mb) + mega);
-			logger.info("Max memory: " + format.format(maxMemory / mb) + mega);
-			logger.info("Total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / mb) + mega);
-			logger.info("=================================================================\n");
-			logger.info("Тестовые юзеры:");
-			logger.info("{\"username\": \"Поросенок Петр\", \"password\": \"password1\"}");
-			logger.info("{\"username\": \"Колобок Виктор\", \"password\": \"password2\"}");
-			logger.info("{\"username\": \"Крокодил Гена\", \"password\": \"password3\"}");
-			logger.info("{\"username\": \"Еж Василий\", \"password\": \"password4\"}");
-			logger.info("{\"username\": \"Синица Николай\", \"password\": \"password5\"} // system user (author by default)");
-			logger.info("=================================================================\n");
+		logger.info("========================== Memory Info ==========================");
+		logger.info("Free memory: " + format.format(freeMemory / mb) + mega);
+		logger.info("Allocated memory: " + format.format(allocatedMemory / mb) + mega);
+		logger.info("Max memory: " + format.format(maxMemory / mb) + mega);
+		logger.info("Total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / mb) + mega);
+		logger.info("=================================================================\n");
+		logger.info("Тестовые юзеры:");
+		logger.info("{\"username\": \"Поросенок Петр\", \"password\": \"password1\"}");
+		logger.info("{\"username\": \"Колобок Виктор\", \"password\": \"password2\"}");
+		logger.info("{\"username\": \"Крокодил Гена\", \"password\": \"password3\"}");
+		logger.info("{\"username\": \"Еж Василий\", \"password\": \"password4\"}");
+		logger.info("{\"username\": \"Синица Николай\", \"password\": \"password5\"} // system user (author by default)");
+		logger.info("=================================================================\n");
 
-			logger.info("[Конфигурация приложения]: кол-во документов, которое закидываем на " +
-					appConfig.getSubmitCorePoolSize() + "-" + appConfig.getSubmitMaxPoolSize() +
-					" потоков submit: " + appConfig.getSUBMIT_SIZE());
-			logger.info("[Конфигурация приложения]: кол-во документов, которое закидываем на " +
-					appConfig.getApproveCorePoolSize() + "-" + appConfig.getApproveMaxPoolSize() +
-					" потоков approve: " + appConfig.getAPPROVE_SIZE());
-			logger.info("[Конфигурация приложения]: кол-во документов, которое обрабатываем в одном потоке: " +
-					appConfig.getPARTITION_SIZE());
-		}
+		logger.info("[Конфигурация приложения]: кол-во документов, которое закидываем на " +
+				appConfig.getSubmitCorePoolSize() + "-" + appConfig.getSubmitMaxPoolSize() +
+				" потоков submit: " + appConfig.getSUBMIT_SIZE());
+		logger.info("[Конфигурация приложения]: кол-во документов, которое закидываем на " +
+				appConfig.getApproveCorePoolSize() + "-" + appConfig.getApproveMaxPoolSize() +
+				" потоков approve: " + appConfig.getAPPROVE_SIZE());
+		logger.info("[Конфигурация приложения]: кол-во документов, которое обрабатываем в одном потоке: " +
+				appConfig.getPARTITION_SIZE());
 	}
-// todo: GIT (чекнуть с ноута)
-
-
-
-
-
-
-
-
-
+}
