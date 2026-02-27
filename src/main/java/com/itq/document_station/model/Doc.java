@@ -24,8 +24,8 @@ import java.util.UUID;
 public class Doc {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "history_seq")
-    @SequenceGenerator(name = "history_seq", sequenceName = "history_id_seq", allocationSize = 50)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "doc_seq")
+    @SequenceGenerator(name = "doc_seq", sequenceName = "doc_id_seq", allocationSize = 50)
     private Long id;
 
     @Version
