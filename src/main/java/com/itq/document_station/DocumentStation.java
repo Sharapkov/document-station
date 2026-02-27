@@ -1,23 +1,19 @@
 package com.itq.document_station;
 
 import com.itq.document_station.config.AppConfig;
-import com.itq.document_station.service.generate.DocGenerateService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.text.NumberFormat;
-import java.util.Collections;
 
 @SpringBootApplication
 public class DocumentStation implements CommandLineRunner {
 
-	private static Log logger = LogFactory.getLog(DocumentStation.class);
+	private static final Log logger = LogFactory.getLog(DocumentStation.class);
 
 	@Autowired
 	private AppConfig appConfig;
@@ -62,56 +58,7 @@ public class DocumentStation implements CommandLineRunner {
 					appConfig.getPARTITION_SIZE());
 		}
 	}
-
-	// исследование пакетного создания vs одиночного создания
-//	--------------------------------------------------
-//	Regular inserts     |    1         |           6ms
-//	Batch inserts       |    1         |           2ms
-//	Total gain: 66 %
-//			--------------------------------------------------
-//	Regular inserts     |    10        |           5ms
-//	Batch inserts       |    10        |           2ms
-//	Total gain: 60 %
-//			--------------------------------------------------
-//	Regular inserts     |    100       |          37ms
-//	Batch inserts       |    100       |           9ms
-//	Total gain: 75 %
-//			--------------------------------------------------
-//	Regular inserts     |    1000      |         286ms
-//	Batch inserts       |    1000      |         103ms
-//	Total gain: 63 %
-//			--------------------------------------------------
-//	Regular inserts     |    10000     |        3910ms
-//	Batch inserts       |    10000     |         970ms
-//	Total gain: 75 %
-//			--------------------------------------------------
-//	Regular inserts     |    100000    |       34582ms
-//	Batch inserts       |    100000    |        9116ms
-//	Total gain: 73 %
-//			--------------------------------------------------
-//	Regular inserts     |    1000000   |      326556ms
-//	Batch inserts       |    1000000   |       94127ms
-//	Total gain: 71 %
-
-
-	// авторизация + текущий пользак работают
-	// таблицы с документами созданы
-	// find-by-id, findAll работают
-	// параллельная обработка (да)
-    // фоновые процессы (да)
-    // пкетная вставка (да)
-	// Проверка конкурентного утверждения (да)
-
-
-// проверено, документация написана
-
-
-// todo: добавить:
-//  3 explain sql (1 час)
 // todo: GIT (чекнуть с ноута)
-
-
-// todo: создать docker compose, бд + миграция + тестовые юзеры миграцию данных
 
 
 

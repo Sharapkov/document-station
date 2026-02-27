@@ -18,7 +18,6 @@ import com.itq.document_station.repository.specification.DocSpecifications;
 import com.itq.document_station.service.DocService;
 import com.itq.document_station.utill.DocMapper;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,7 +25,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -50,8 +48,8 @@ public class DocServiceImpl implements DocService {
     private final RegisterRepository registerRepository;
     private final EntityManager entityManager;
     private final TransactionTemplate transactionTemplate;
-    private final Executor taskSubmitExecutor;      // используем интерфейс Executor
-    private final Executor taskApproveExecutor;     // вместо конкретного ThreadPoolTaskExecutor
+    private final Executor taskSubmitExecutor;
+    private final Executor taskApproveExecutor;
     private final AppConfig appConfig;
 
     @Autowired
@@ -391,7 +389,7 @@ public class DocServiceImpl implements DocService {
             return userRepository.findByUsername(userDetails.getUsername())
                     .orElseThrow(() -> new EntityNotFoundException("Current user not found"));
         } else {
-            return userRepository.findById(5L)
+            return userRepository.findByUsername("Поросенок Петр")
                     .orElseThrow(() -> new EntityNotFoundException("System User not found"));
         }
     }

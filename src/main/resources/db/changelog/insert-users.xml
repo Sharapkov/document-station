@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20260227120000" author="e.sharapkov">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM users</sqlCheck>
+        </preConditions>
+        <comment>Добавление тестовых пользователей</comment>
+        <insert tableName="users">
+            <column name="username" value="Поросенок Петр"/>
+            <column name="password" value="$2a$10$qq7O0f5j97I9TjvgP4T4Su/PPvX.yz74iU3Zh/35K0.Ph3849oS4K"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="Колобок Виктор"/>
+            <column name="password" value="$2a$10$Q7xU15TJXimI6/ZaflmW2u6QjvthjVen6MrrEi92ZVQR1u3lwkE4q"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="Крокодил Гена"/>
+            <column name="password" value="$2a$10$4t1lTqVDNhNoKDwJachPmuRV12/MohdCXY8GpsQ7xA.kJjVv/mNV."/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="Еж Василий"/>
+            <column name="password" value="$2a$10$FG0Px3DnriWXmCrWifsMn.8b8zLpgz0nBFwLSWi9dPfKS9A1CCjKG"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="Синица Николай"/>
+            <column name="password" value="$2a$10$Uj9yjzKWm5GL.xrHDZMIFeB7gsjkeeEU3AvEur9c.HxtlT9WIiozO"/>
+        </insert>
+
+        <createIndex indexName="idx_history_user_id" tableName="history">
+            <column name="user_id"/>
+        </createIndex>
+        <createIndex indexName="idx_doc_user_id" tableName="doc">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+
+
+</databaseChangeLog>
