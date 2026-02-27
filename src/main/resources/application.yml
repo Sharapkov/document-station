@@ -1,0 +1,53 @@
+server:
+  port: 8080
+logging:
+  level:
+    org.hibernate: INFO
+    org.hibernate.SQL: INFO
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    properties:
+      hibernate:
+        order_inserts: true
+        order_updates: true
+        jdbc:
+          batch_size: 50
+        id:
+          new_generator_mappings: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/docs?reWriteBatchedInserts=true
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maxLifetime: 1000 # maximum lifetime in milliseconds of a connection in the pool after it is closed.
+      maximumPoolSize: 31 #maximum pool size
+      minimumIdle: 10 #minimum number of idle connections maintained by HikariCP in a connection pool
+      connectionTimeout: 20000 #maximum number of milliseconds that a client will wait for a connection
+      idleTimeout: 10000 #maximum idle time for connection
+  liquibase:
+    change-log: 'classpath:db/master.xml'
+jwt:
+  secret: secretKeyForJWTGenerationMustBeLongEnoughForHS512AlgorithmElseYouHaveProblemsMister
+  access-token-expiration: 604800000     # 7 дней
+  refresh-token-expiration: 604800000    # 7 дней
+app:
+  generate: 10000 # сколько сгенерировать документов
+  partition: 625 # сколько документов на 1 потока сервиса
+  worker:
+    submit:
+      batch-size: 1 # кол-во документов, которое закидываем на (4-8) потоков сервиса
+      fixed-delay: 600000  # 10 минута
+      core-pool-size: 8 # минимальное кол-во потоков для согласования
+      max-pool-size: 8 # максимальное кол-во потоков для согласования
+    approve:
+      batch-size: 1 # кол-во документов, которое закидываем на (4-8) потоков сервиса
+      fixed-delay: 600000 # 10 минута
+      core-pool-size: 8 # минимальное кол-во потоков для утверждения
+      max-pool-size: 8 # максимальное кол-во потоков для утверждения
+
+
+
+

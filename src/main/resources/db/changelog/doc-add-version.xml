@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+
+
+    <changeSet id="20260223131600" author="e.sharapkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="doc" columnName="version"/>
+            </not>
+        </preConditions>
+        <comment>Добавление колонки version для оптимистичной блокировки</comment>
+        <addColumn tableName="doc">
+            <column name="version" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+
+</databaseChangeLog>

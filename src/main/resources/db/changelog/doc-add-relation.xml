@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="2026022135200" author="e.sharapkov">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="register"/>
+                <not>
+                    <columnExists tableName="register" columnName="doc_id"/>
+                </not>
+            </and>
+        </preConditions>
+        <comment>Добавление связи между doc и register</comment>
+        <addColumn tableName="register">
+            <column name="doc_id" type="BIGINT">
+                <constraints nullable="false"
+                             unique="true"
+                             foreignKeyName="fk_register_doc"
+                             references="doc(id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+
+</databaseChangeLog>

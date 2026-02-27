@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+
+
+    <!-- ========== Документы ========== -->
+    <changeSet id="20260222212900" author="e.sharapkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="doc_id_seq"/>
+            </not>
+        </preConditions>
+        <comment>Создание последовательности для doc</comment>
+        <createSequence sequenceName="doc_id_seq" startValue="1" incrementBy="50"/>
+    </changeSet>
+
+    <changeSet id="20260222212901" author="e.sharapkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="doc"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы документов</comment>
+        <createTable tableName="doc">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="doc_id_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="doc_number" type="VARCHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="updated_date" type="TIMESTAMP"/>
+        </createTable>
+
+        <addForeignKeyConstraint constraintName="fk_doc_user"
+                                 baseTableName="doc" baseColumnNames="user_id"
+                                 referencedTableName="users" referencedColumnNames="id"/>
+    </changeSet>
+
+    <!-- ========== История ========== -->
+    <changeSet id="20260222212903" author="e.sharapkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="history_id_seq"/>
+            </not>
+        </preConditions>
+        <comment>Создание последовательности для history</comment>
+        <createSequence sequenceName="history_id_seq" startValue="1" incrementBy="50"/>
+    </changeSet>
+
+    <changeSet id="20260222212904" author="e.sharapkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="history"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы истории</comment>
+        <createTable tableName="history">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="history_id_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="doc_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT"/>
+            <column name="action" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="comment" type="TEXT"/>
+        </createTable>
+
+        <addForeignKeyConstraint constraintName="fk_history_doc"
+                                 baseTableName="history" baseColumnNames="doc_id"
+                                 referencedTableName="doc" referencedColumnNames="id"/>
+        <addForeignKeyConstraint constraintName="fk_history_user"
+                                 baseTableName="history" baseColumnNames="user_id"
+                                 referencedTableName="users" referencedColumnNames="id"/>
+
+        <createIndex indexName="idx_history_doc_id" tableName="history">
+            <column name="doc_id"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- ========== Реестр ========== -->
+    <changeSet id="20260222212905" author="e.sharapkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="register_id_seq"/>
+            </not>
+        </preConditions>
+        <comment>Создание последовательности для register</comment>
+        <createSequence sequenceName="register_id_seq" startValue="1" incrementBy="50"/>
+    </changeSet>
+
+    <changeSet id="20260222212906" author="e.sharapkov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="register"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы реестра</comment>
+        <createTable tableName="register">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="register_id_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="message" type="VARCHAR(255)"/>
+            <column name="created_date" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
